@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 latest_release="$(curl https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest)"
 download_url="$(grep -e "browser_download_url.*Heroic.*\.AppImage" <<< "$latest_release" | cut -d : -f 2,3 | tr -d '" ,')"
@@ -11,6 +11,7 @@ then
   echo "Installing latest version of Heroic Games Launcher..."
   wget -O ./Heroic-Launcher.AppImage "$download_url"
   chmod +x ./Heroic-Launcher.AppImage
+  echo -n "$tag_name" > ./.version
 fi
 
 nohup ./Heroic-Launcher.AppImage &
