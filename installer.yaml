@@ -5,19 +5,19 @@ slug: "heroic_games_launcher_latest"
 runner: linux
 
 script:
-  exe: "launch.sh"
+  game:
+    exe: "launch.sh"
+    working_dir: "$GAMEDIR"
 
   files:
-    # Required so Lutris creates the $GAMEDIR
     - launcher: "https://github.com/theCalcaholic/lutris-heroic-games-launcher/releases/latest/download/launch.sh"
+
   installer:
-#    - execute:
-#        command: |
-#          download_url="$(curl https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest
-#            | grep -e "browser_download_url.*Heroic.*\.AppImage"
-#            | cut -d : -f 2,3 | tr -d '" ')"
-#          wget -O "$CACHE/Heroic-Launcher.AppImage" "$download_url"
     - move:
         src: launcher
         dst: "$GAMEDIR/launch.sh"
     - chmodx: $GAMEDIR/launch.sh
+
+  system:
+    terminal: true
+
